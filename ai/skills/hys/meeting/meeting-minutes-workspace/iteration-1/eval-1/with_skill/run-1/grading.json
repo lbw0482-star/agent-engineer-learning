@@ -1,0 +1,71 @@
+{
+  "experiment": "with_skill",
+  "expectations": [
+    {
+      "text": "会议时间包含日期和时间",
+      "passed": true,
+      "evidence": "包含 '2024年7月15日 14:00'"
+    },
+    {
+      "text": "会议地点包含会议室信息",
+      "passed": true,
+      "evidence": "包含 '3号会议室'"
+    },
+    {
+      "text": "参会人员完整列出",
+      "passed": true,
+      "evidence": "张三（产品经理）、李四（前端）、王五（后端）、赵六（UI设计师）"
+    },
+    {
+      "text": "包含搜索功能优化主题",
+      "passed": true,
+      "evidence": "主题一：搜索功能优化"
+    },
+    {
+      "text": "包含UI设计改版主题",
+      "passed": true,
+      "evidence": "主题二：新版UI设计"
+    },
+    {
+      "text": "包含预算信息",
+      "passed": true,
+      "evidence": "市场部申请20万推广预算"
+    },
+    {
+      "text": "行动项包含前端异步加载",
+      "passed": true,
+      "evidence": "李四 | 搜索框前端异步加载及loading状态开发"
+    },
+    {
+      "text": "行动项包含后端索引优化",
+      "passed": true,
+      "evidence": "王五 | 后端搜索索引优化及搜索结果排序调整"
+    },
+    {
+      "text": "行动项包含UI终稿设计",
+      "passed": true,
+      "evidence": "赵六 | 新版UI浅色优化版终稿交付"
+    },
+    {
+      "text": "行动项包含截止时间",
+      "passed": true,
+      "evidence": "三条行动项均有明确截止时间（2024年7月29日/7月24日）"
+    },
+    {
+      "text": "去除停顿词",
+      "passed": true,
+      "evidence": "输出中无'嗯'、'那个'、'就是说'等口头禅"
+    },
+    {
+      "text": "包含所有四个章节",
+      "passed": true,
+      "evidence": "一、会议基本信息 / 二、会议目标 / 三、会议内容 / 四、行动项 四个章节标题完整"
+    }
+  ],
+  "summary": {
+    "pass_rate": 1.0,
+    "passed": 12,
+    "failed": 0,
+    "total": 12
+  }
+}

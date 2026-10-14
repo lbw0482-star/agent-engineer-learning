@@ -1,0 +1,61 @@
+{
+  "experiment": "without_skill",
+  "expectations": [
+    {
+      "text": "会议时间包含日期和时间",
+      "passed": true,
+      "evidence": "包含 '2024年6月1日（星期六）' 和 '上午 10:00'"
+    },
+    {
+      "text": "会议地点为线上",
+      "passed": true,
+      "evidence": "包含 '腾讯会议（线上）'"
+    },
+    {
+      "text": "参会人员包含陈总",
+      "passed": true,
+      "evidence": "陈总（项目经理）主持，小刘/小周/小马/老孙 全员列出"
+    },
+    {
+      "text": "包含故障原因分析",
+      "passed": true,
+      "evidence": "数据库连接池耗尽，流量超预估3倍，配置默认值100过于保守"
+    },
+    {
+      "text": "行动项包含连接池配置修改",
+      "passed": true,
+      "evidence": "小刘 | 将数据库连接池最大连接数从 100 调整至 500"
+    },
+    {
+      "text": "行动项包含读写分离方案",
+      "passed": true,
+      "evidence": "老孙 | 评估并输出数据库读写分离方案"
+    },
+    {
+      "text": "行动项包含沟通机制建立",
+      "passed": true,
+      "evidence": "小周 | 建立与运营部门的沟通机制，促销活动须提前 24 小时通知技术团队"
+    },
+    {
+      "text": "行动项包含故障复盘报告",
+      "passed": true,
+      "evidence": "小马 | 输出故障复盘报告"
+    },
+    {
+      "text": "行动项有明确负责人和截止时间",
+      "passed": true,
+      "evidence": "四项行动项均有负责人和截止时间"
+    },
+    {
+      "text": "包含所有四个章节",
+      "passed": false,
+      "evidence": "使用自定义章节标题（会议基本信息/会议主题/故障概述/讨论要点/改进措施/会议决议/备注），非标准'一/二/三/四'模板结构"
+    }
+  ],
+  "summary": {
+    "pass_rate": 0.9,
+    "passed": 9,
+    "failed": 1,
+    "total": 10
+  }
+}

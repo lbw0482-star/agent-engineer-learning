@@ -1,0 +1,61 @@
+{
+  "experiment": "without_skill",
+  "expectations": [
+    {
+      "text": "会议时间包含日期",
+      "passed": true,
+      "evidence": "包含 '2024年8月12日（周一）'"
+    },
+    {
+      "text": "包含推荐算法进度",
+      "passed": true,
+      "evidence": "推荐算法上线及AB测试，点击率提升12%"
+    },
+    {
+      "text": "包含数据看板进度",
+      "passed": true,
+      "evidence": "数据看板完成80%，剩余图表展示细节"
+    },
+    {
+      "text": "包含物流接口对接进度",
+      "passed": true,
+      "evidence": "后端API对接第三方物流接口，接口联调完成"
+    },
+    {
+      "text": "包含版本发布会准备",
+      "passed": true,
+      "evidence": "下周一（8月19日）面向投资方的Q3成果版本发布会"
+    },
+    {
+      "text": "行动项包含PPT制作",
+      "passed": true,
+      "evidence": "小赵 | 周五前完成发布会PPT初版，提交审核"
+    },
+    {
+      "text": "行动项包含演示准备",
+      "passed": true,
+      "evidence": "小王/小李/小张均有演示准备相关任务"
+    },
+    {
+      "text": "行动项有截止时间",
+      "passed": true,
+      "evidence": "待办事项均有关键时间节点"
+    },
+    {
+      "text": "主题按时间顺序组织",
+      "passed": true,
+      "evidence": "一、上周进度回顾 → 二、本周工作重点 顺序合理"
+    },
+    {
+      "text": "包含所有四个章节",
+      "passed": false,
+      "evidence": "使用自定义章节（上周进度回顾/本周工作重点/待办事项汇总/关键时间节点），无'会议基本信息'/'会议目标'/'会议内容'/'行动项'标准标题"
+    }
+  ],
+  "summary": {
+    "pass_rate": 0.9,
+    "passed": 9,
+    "failed": 1,
+    "total": 10
+  }
+}

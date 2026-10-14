@@ -1,0 +1,61 @@
+{
+  "experiment": "with_skill",
+  "expectations": [
+    {
+      "text": "会议时间包含日期",
+      "passed": true,
+      "evidence": "包含 '2024年8月12日（周一）上午'"
+    },
+    {
+      "text": "包含推荐算法进度",
+      "passed": true,
+      "evidence": "推荐算法已上线，AB测试运行一周，点击率提升12%"
+    },
+    {
+      "text": "包含数据看板进度",
+      "passed": true,
+      "evidence": "数据看板完成80%"
+    },
+    {
+      "text": "包含物流接口对接进度",
+      "passed": true,
+      "evidence": "后端API对接第三方物流接口...接口联调已完成"
+    },
+    {
+      "text": "包含版本发布会准备",
+      "passed": true,
+      "evidence": "8月19日Q3版本发布会，面向投资方展示Q3成果"
+    },
+    {
+      "text": "行动项包含PPT制作",
+      "passed": true,
+      "evidence": "小赵 | 制作版本发布会PPT...8月16日（周五）"
+    },
+    {
+      "text": "行动项包含演示准备",
+      "passed": true,
+      "evidence": "小王/小李/小张均有发布会演示相关行动项"
+    },
+    {
+      "text": "行动项有截止时间",
+      "passed": true,
+      "evidence": "7条行动项均有明确截止时间"
+    },
+    {
+      "text": "主题按时间顺序组织",
+      "passed": true,
+      "evidence": "主题一：上周工作进度回顾 → 主题二：版本发布会准备工作"
+    },
+    {
+      "text": "包含所有四个章节",
+      "passed": true,
+      "evidence": "一、会议基本信息 / 二、会议目标 / 三、会议内容 / 四、行动项 四个章节标题完整"
+    }
+  ],
+  "summary": {
+    "pass_rate": 1.0,
+    "passed": 10,
+    "failed": 0,
+    "total": 10
+  }
+}
