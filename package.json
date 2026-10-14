@@ -1,0 +1,12 @@
+{
+	"dependencies": {
+		"@langchain/classic": "^1.0.40",
+		"@langchain/core": "^1.2.3",
+		"@langchain/openai": "^1.5.5",
+		"@modelcontextprotocol/sdk": "^1.29.0",
+		"@zilliz/milvus2-sdk-node": "^3.0.3",
+		"dotenv": "^17.4.2",
+		"neo4j-driver": "^6.2.0",
+		"zod": "^4.4.3"
+	}
+}

@@ -1,0 +1,10 @@
+.DS_Store
+__MACOSX
+node_modules
+.env
+.env.*
+*.epub
+*.mp3
+.dbg/
+ai/agent/es/es-test/volumes/
+secret.txt
