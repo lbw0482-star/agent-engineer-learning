@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>SSE Chat Demo</title>
+  <style>
+    * {box-sizing: border-box;margin:0;padding:0;font-family:system-ui;}
+    body {max-width:800px;margin:30px auto;padding:0 20px;}
+    #chatBox {border:1px solid #ddd;height:400px;overflow-y:auto;padding:16px;border-radius:8px;margin-bottom:16px;white-space:pre-wrap;}
+    .input-area {display:flex;gap:8px;}
+    #queryInput {flex:1;padding:10px;font-size:16px;border:1px solid #ddd;border-radius:6px;}
+    button {padding:10px 16px;border:none;background:#2563eb;color:#fff;border-radius:6px;cursor:pointer;}
+    button:disabled {background:#94a3b8;cursor:not-allowed;}
+  </style>
+</head>
+<body>
+  <div id="chatBox"></div>
+  <div class="input-area">
+    <input id="queryInput" placeholder="输入你的问题..." />
+    <button id="sendBtn">发送</button>
+    <button id="clearBtn">清空</button>
+  </div>
+
+<script>
+const chatBox = document.getElementById('chatBox');
+const queryInput = document.getElementById('queryInput');
+const sendBtn = document.getElementById('sendBtn');
+const clearBtn = document.getElementById('clearBtn');
+
+let eventSource = null;
+
+// 发送SSE请求
+sendBtn.onclick = async () => {
+  const query = queryInput.value.trim();
+  if (!query) return;
+  // 关闭上一个连接
+  if(eventSource) eventSource.close();
+
+  sendBtn.disabled = true;
+  chatBox.innerHTML += `\n【你】：${query}\n【AI】：`;
+  // 连接nest sse接口
+  const url = `http://localhost:3000/ai/chat/stream?query=${encodeURIComponent(query)}`;
+  eventSource = new EventSource(url);
+
+  // 接收流式data
+  eventSource.onmessage = (e) => {
+    chatBox.innerHTML += e.data;
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  // 连接结束
+  eventSource.onclose = () => {
+    sendBtn.disabled = false;
+    eventSource = null;
+    chatBox.innerHTML += "\n";
+  }
+
+  eventSource.onerror = (err) => {
+    console.error("SSE异常", err);
+    eventSource?.close();
+    sendBtn.disabled = false;
+  }
+}
+
+clearBtn.onclick = () => {
+  chatBox.innerHTML = "";
+  queryInput.value = "";
+  eventSource?.close();
+}
+</script>
+</body>
+</html>

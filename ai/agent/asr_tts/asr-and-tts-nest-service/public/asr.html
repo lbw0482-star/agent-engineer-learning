@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASR 录音测试</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      max-width: 720px;
+      margin: 40px auto;
+      padding: 0 16px;
+      line-height: 1.6;
+    }
+    button {
+      margin-right: 8px;
+      margin-bottom: 8px;
+      padding: 8px 14px;
+    }
+    .status {
+      margin: 12px 0;
+      color: #444;
+    }
+    pre {
+      background: #f6f8fa;
+      padding: 12px;
+      border-radius: 6px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>ASR 录音上传测试</h1>
+  <p>点击开始录音，结束后自动上传到 <code>/speech/asr</code>。</p>
+  <button id="startBtn">开始录音</button>
+  <button id="stopBtn" disabled>停止录音并上传</button>
+  <div id="status">状态：未开始</div>
+  <h3>识别结果</h3>
+  <pre id="result">(暂无)</pre>
+
+  <script>
+  const startBtn = document.getElementById('startBtn');
+  const stopBtn = document.getElementById('stopBtn');
+  const statusEl = document.getElementById('status');
+  const resultEl = document.getElementById('result');
+
+  let mediaRecorder = null;// 录音对象
+  let chunks = [];
+  const recordFilename = "record.ogg"; // 录音文件名 ogg 格式
+
+  function setStatus(text) {
+    statusEl.textContent = "状态：" + text;
+  } 
+
+  startBtn.addEventListener('click', async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+      chunks = []; // 重置 录音数据
+      // 指定音频MIME类型, 采用 ogg 封装， opus 编码， 用于浏览器录音输出音频格式
+      const preferredMimeType = 'audio/ogg;codecs=opus'; 
+      mediaRecorder = MediaRecorder.isTypeSupported(preferredMimeType) 
+        ? new MediaRecorder(stream, { mimeType: preferredMimeType })
+      : new MediaRecorder(stream); // 默认的
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data && event.data.size > 0) {
+          console.log(event.data);
+          chunks.push(event.data);
+        }
+      }
+
+      mediaRecorder.onstop = async () => {
+        setStatus("录音结束, 正在上传...");
+        console.log(chunks); 
+
+        try {
+          console.log(chunks);
+          // 顺序， 
+          // 合并所有分片为一个 Blob 对象， 并指定 MIME 类型
+          const blob = new Blob(chunks, {
+            type: mediaRecorder.mimeType || 'audio/webm'
+          });
+          if (!blob.size) {
+            throw new Error("录音数据为空, 请至少录制1秒再上传");
+          }
+          // 请求体
+          const formData = new FormData(); // 大文件上传
+          formData.append('audio', blob, recordFilename); // 上传音频文件
+          
+          const response = await fetch("/speech/asr", {
+            method: "POST",
+            body: formData
+          });
+
+          if (!response.ok) {
+            const text = await response.text();
+            throw new Error(text || "上传失败");
+          }
+
+          const data = await response.json();
+          resultEl.textContent = data.text || "（空结果）"
+          setStatus("上传成功");
+        } catch(error) {
+          setStatus("上传失败");
+          resultEl.textContent = "错误：" + (error.message || String(error));
+        } finally {
+          // 无论是否成功， 都要关闭录音流
+          stream.getTracks().forEach(t => t.stop());
+        }
+      }
+      // 250 时间片毫秒值 每250 毫秒 自动触发ondataavailable 事件
+      // 输出一块音频分片
+      mediaRecorder.start(250);
+      setStatus("录音中...");
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+    } catch(err) {
+      setStatus("无法开始录音");
+      resultEl.textContent = "错误：" + (err.message || String(err));
+    }
+  });
+
+  stopBtn.addEventListener('click', async () => {
+    if (mediaRecorder) {
+      mediaRecorder.stop();
+      setStatus("录音已停止");
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+    }
+  });
+  </script>
+</body>
+</html>

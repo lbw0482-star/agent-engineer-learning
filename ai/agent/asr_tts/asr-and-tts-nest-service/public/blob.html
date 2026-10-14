@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blob图片URL演示</title>
+</head>
+<body>
+<h3>Blob生成的图片：</h3>
+<img id="imgDom" style="max-width:300px;">
+<script>
+// 用一张极小svg作为二进制数据源
+const svg = `<svg width="200" height="100"><rect width="200" height="100" fill="#42b983"/><text x="20" y="60" fill="#fff">Blob图片</text></svg>`;
+const blob = new Blob([svg], {type:'image/svg+xml'});
+// 创建 blob: 临时url
+const blobUrl = URL.createObjectURL(blob);
+console.log(blobUrl);
+document.getElementById('imgDom').src = blobUrl;
+</script>
+</body>
+</html>
